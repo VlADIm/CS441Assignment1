@@ -1,5 +1,7 @@
 package com.example.cs441assignment1;
 
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -42,17 +44,27 @@ public class MainActivity extends AppCompatActivity {
 
         final CoordinatorLayout MainActivity = (CoordinatorLayout) findViewById(R.id.coordinator);
 
+        ColorDrawable[] color = {new ColorDrawable(getResources().getColor(R.color.bgColorStart)), new ColorDrawable(getResources().getColor(R.color.bgColorChange))};
+
+        final TransitionDrawable trans = new TransitionDrawable(color);
+
+        MainActivity.setBackground(trans);
+
+//        trans.setCrossFadeEnabled(true);
+
         changeTextButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if(event.getAction()== MotionEvent.ACTION_DOWN){
-                    changetext.setText("Hello world and good Morning!");
-                    MainActivity.setBackgroundColor(getResources().getColor(R.color.bgColorChange));
+                    changetext.setText(getResources().getString(R.string.text_change));
+//                    MainActivity.setBackgroundColor(getResources().getColor(R.color.bgColorChange));
+                    trans.reverseTransition(1500);
                 }
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    changetext.setText("Press the button again.");
-                    MainActivity.setBackgroundColor(getResources().getColor(R.color.bgColorStart));
+                    changetext.setText(getResources().getString(R.string.text_default));
+//                    MainActivity.setBackgroundColor(getResources().getColor(R.color.bgColorStart));
+                    trans.reverseTransition(1500);
                 }
                 return true;
             }
