@@ -1,6 +1,7 @@
 package com.example.cs441assignment1;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,19 +40,21 @@ public class MainActivity extends AppCompatActivity {
 
         final Button changeTextButton = (Button) findViewById(R.id.change_text_button);
 
+        final CoordinatorLayout MainActivity = (CoordinatorLayout) findViewById(R.id.coordinator);
+
         changeTextButton.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-
-                if(event.getButtonState() == MotionEvent.ACTION_DOWN){  //need to find a way to change the text back so that the text only changes for when the button is pressed down
+                if(event.getAction()== MotionEvent.ACTION_DOWN){
                     changetext.setText("Hello world and good Morning!");
-                    return true;
-                } else if(event.getButtonState() == MotionEvent.ACTION_UP){
-                    changetext.setText("Press the button again.");
-                    return true;
+                    MainActivity.setBackgroundColor(getResources().getColor(R.color.bgColorChange));
                 }
-                return false;
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    changetext.setText("Press the button again.");
+                    MainActivity.setBackgroundColor(getResources().getColor(R.color.bgColorStart));
+                }
+                return true;
             }
         });
     }
