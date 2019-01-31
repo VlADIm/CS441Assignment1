@@ -12,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         MainActivity.setBackground(trans);
 
+
+        final Animation bounce_anim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
 //        trans.setCrossFadeEnabled(true);
 
         changeTextButton.setOnTouchListener(new View.OnTouchListener() {
@@ -64,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 if(event.getAction() == MotionEvent.ACTION_UP){
                     changetext.setText(getResources().getString(R.string.text_default));
 //                    MainActivity.setBackgroundColor(getResources().getColor(R.color.bgColorStart));
+                    changeTextButton.startAnimation(bounce_anim);
+
                     trans.reverseTransition(1500);
                 }
                 return true;
